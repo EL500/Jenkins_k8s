@@ -12,22 +12,27 @@ spec:
       labels:
         app: jenkins
     spec:
+      volumes:
+        - name: jenkins-pv-storage
+          persistentVolumeClaim:
+              claimName: jenkins-pv-claim
+
       containers:
-      - name: jenkins
-        image: elevin//jenkins_k8s:1.0
-        env:
-           - name: JAVA_OPTS
-             value: -Djenkins.install.runSetupWizard=false
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-           - name: http-port
-             containerPort: 8080
-           - name: jnlp-port
-             containerPort: 50000
-        volumeMounts:
-          - mountPath: /var/jenkins_home
-            name: jenkins-volume
+        - name: jenkins
+          image: elevin/jenkins_k8s:1.0
+          env:
+             - name: JAVA_OPTS
+               value: -Djenkins.install.runSetupWizard=false
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+             - name: http-port
+               containerPort: 8080
+             - name: jnlp-port
+               containerPort: 50000
+          volumeMounts:
+            - mountPath: /var/jenkins_home
+              name: jenkins-pv-storage
 
