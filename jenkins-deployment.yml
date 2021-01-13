@@ -26,10 +26,6 @@ spec:
           env:
              - name: JAVA_OPTS
                value: -Djenkins.install.runSetupWizard=false
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           ports:
              - name: http-port
                containerPort: 8080
