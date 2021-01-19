@@ -1,0 +1,12 @@
+apiVersion: v1
+Kind: service
+metadata:
+  name: default-http-backend
+  namespace:  kube-system
+spec:
+  selector:
+     app: default-response-app
+  ports:
+    - protocol: TCP
+      port: 80
+      tagetPort: 9090
